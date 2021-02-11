@@ -19,10 +19,12 @@ def CookMan(df,user_ingredients):
         "Comparing the Recipe Ingredients and User Ingredients and decreasing count value for each Recipe ingredient missing.\
         Count describes the no. of ingredients missing from user ingredients to make that recipe."
         flag,count=0,0
+        ulcount=0
         for i in set(Pingredients.split(",")):
             for j in  user_ingredients.split(","):
                 if i==j:               
                     flag=1 
+                    ulcount=1
                     break
             if (flag==0):
                 count-=1
@@ -30,10 +32,14 @@ def CookMan(df,user_ingredients):
                 flag=0
             if count<-10:
                 return count
-        return count
+        if(ulcount==0):
+            return count-1
+        else:
+            return count
 
  def MainCook(Pingredients):    
         flag,count=0,0
+        ullcount=0
         for i in set(Pingredients.split(",")):
             for j in  user_ingredients.split(","):
                 if fuzz.token_set_ratio(i,j)>80:                 
@@ -43,7 +49,10 @@ def CookMan(df,user_ingredients):
                 count-=1
             else:
                 flag=0
-        return count
+        if(ullcount==0):
+            return count-1
+        else:
+            return count
     
     
  df["flag"]=df["P-Ingredients"].apply(Cook2)  
@@ -71,4 +80,4 @@ def CookMan(df,user_ingredients):
  return df
 
 Cookdf=CookMan(df,user_ingredients)
-#print Cookdf
+
