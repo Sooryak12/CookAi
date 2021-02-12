@@ -80,4 +80,3 @@ def CookMan(df,user_ingredients):
  return df
 
 Cookdf=CookMan(df,user_ingredients)
-
